@@ -215,4 +215,4 @@ For issues and questions:
 
 ---
 
-**Happy exploring! 🌍** 
+Mithrandir3010
