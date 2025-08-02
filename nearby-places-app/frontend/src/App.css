@@ -1,0 +1,22 @@
+.loading-icon {
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.error-text {
+  color: #e74c3c;
+  font-size: 0.8em;
+  margin-top: 4px;
+}
+
+.form-group input.error {
+  border-color: #e74c3c;
+} 

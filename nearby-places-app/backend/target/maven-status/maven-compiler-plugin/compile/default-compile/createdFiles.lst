@@ -1,0 +1,13 @@
+com\nearbyplaces\dto\PlaceResponse.class
+com\nearbyplaces\repository\PlaceRepository.class
+com\nearbyplaces\model\FavoritePlace.class
+com\nearbyplaces\service\PlaceService.class
+com\nearbyplaces\dto\NearbyPlacesRequest.class
+com\nearbyplaces\model\Place.class
+com\nearbyplaces\dto\FavoritePlaceRequest.class
+com\nearbyplaces\controller\PlaceController.class
+com\nearbyplaces\dto\FavoritePlaceResponse.class
+com\nearbyplaces\controller\FavoritePlaceController.class
+com\nearbyplaces\repository\FavoritePlaceRepository.class
+com\nearbyplaces\NearbyPlacesApplication.class
+com\nearbyplaces\service\FavoritePlaceService.class
