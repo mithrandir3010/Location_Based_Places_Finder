@@ -23,9 +23,10 @@ public class PlaceController {
     public ResponseEntity<List<PlaceResponse>> findNearbyPlaces(
             @RequestParam BigDecimal latitude,
             @RequestParam BigDecimal longitude,
-            @RequestParam BigDecimal radius) {
+            @RequestParam BigDecimal radius,
+            @RequestParam(required = false) String type) {
         
-        List<PlaceResponse> places = placeService.findNearbyPlaces(latitude, longitude, radius);
+        List<PlaceResponse> places = placeService.findNearbyPlaces(latitude, longitude, radius, type);
         return ResponseEntity.ok(places);
     }
     
@@ -36,7 +37,8 @@ public class PlaceController {
         List<PlaceResponse> places = placeService.findNearbyPlaces(
             request.getLatitude(), 
             request.getLongitude(), 
-            request.getRadius()
+            request.getRadius(),
+            request.getType()
         );
         return ResponseEntity.ok(places);
     }

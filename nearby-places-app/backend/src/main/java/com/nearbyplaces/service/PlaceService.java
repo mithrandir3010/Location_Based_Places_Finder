@@ -30,12 +30,12 @@ public class PlaceService {
      * @param radius The search radius in kilometers
      * @return List of PlaceResponse objects
      */
-    public List<PlaceResponse> findNearbyPlaces(BigDecimal latitude, BigDecimal longitude, BigDecimal radius) {
-        logger.info("Finding nearby places at lat: {}, lng: {}, radius: {}km", latitude, longitude, radius);
+    public List<PlaceResponse> findNearbyPlaces(BigDecimal latitude, BigDecimal longitude, BigDecimal radius, String type) {
+        logger.info("Finding nearby places at lat: {}, lng: {}, radius: {}km, type: {}", latitude, longitude, radius, type);
         
         // For now, return mock data
         // Google Places API integration will be added later
-        return generateMockPlaces(latitude, longitude, radius);
+        return generateMockPlaces(latitude, longitude, radius, type);
     }
     
     /**
@@ -46,13 +46,15 @@ public class PlaceService {
      * @param radius The search radius in kilometers
      * @return List of PlaceResponse objects with mock data
      */
-    private List<PlaceResponse> generateMockPlaces(BigDecimal latitude, BigDecimal longitude, BigDecimal radius) {
-        logger.info("Generating mock places for coordinates: {}, {}", latitude, longitude);
+    private List<PlaceResponse> generateMockPlaces(BigDecimal latitude, BigDecimal longitude, BigDecimal radius, String type) {
+        logger.info("Generating mock places for coordinates: {}, {}, type: {}", latitude, longitude, type);
         
         List<PlaceResponse> places = new ArrayList<>();
         
         // Generate some mock places around the given coordinates
-        places.add(new PlaceResponse(
+        List<PlaceResponse> allPlaces = new ArrayList<>();
+        
+        allPlaces.add(new PlaceResponse(
             "Starbucks Coffee",
             "123 Main Street, Downtown",
             latitude.add(new BigDecimal("0.001")),
@@ -62,7 +64,7 @@ public class PlaceService {
             List.of("cafe", "food", "establishment")
         ));
         
-        places.add(new PlaceResponse(
+        allPlaces.add(new PlaceResponse(
             "McDonald's",
             "456 Oak Avenue, Shopping District",
             latitude.add(new BigDecimal("-0.002")),
@@ -72,7 +74,7 @@ public class PlaceService {
             List.of("restaurant", "food", "establishment")
         ));
         
-        places.add(new PlaceResponse(
+        allPlaces.add(new PlaceResponse(
             "Local Library",
             "789 Pine Street, Cultural District",
             latitude.add(new BigDecimal("0.003")),
@@ -82,7 +84,7 @@ public class PlaceService {
             List.of("library", "establishment", "point_of_interest")
         ));
         
-        places.add(new PlaceResponse(
+        allPlaces.add(new PlaceResponse(
             "City Park",
             "321 Elm Street, Recreation Area",
             latitude.add(new BigDecimal("-0.001")),
@@ -92,7 +94,7 @@ public class PlaceService {
             List.of("park", "establishment", "point_of_interest")
         ));
         
-        places.add(new PlaceResponse(
+        allPlaces.add(new PlaceResponse(
             "Gas Station",
             "654 Maple Drive, Highway Exit",
             latitude.add(new BigDecimal("0.004")),
@@ -102,7 +104,18 @@ public class PlaceService {
             List.of("gas_station", "establishment", "point_of_interest")
         ));
         
-        logger.info("Generated {} mock places", places.size());
+        // Filter places by type if specified
+        if (type != null && !type.isEmpty()) {
+            for (PlaceResponse place : allPlaces) {
+                if (place.getTypes().contains(type.toLowerCase())) {
+                    places.add(place);
+                }
+            }
+        } else {
+            places.addAll(allPlaces);
+        }
+
+        logger.info("Generated {} mock places after filtering by type: {}", places.size(), type);
         return places;
     }
     

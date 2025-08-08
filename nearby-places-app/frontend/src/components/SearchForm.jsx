@@ -5,7 +5,17 @@ const SearchForm = ({ onSearch, loading }) => {
   const [latitude, setLatitude] = useState('')
   const [longitude, setLongitude] = useState('')
   const [radius, setRadius] = useState('5')
+  const [type, setType] = useState('')
   const [errors, setErrors] = useState({})
+
+  const placeTypes = [
+    { value: '', label: 'All Types' },
+    { value: 'restaurant', label: 'Restaurants' },
+    { value: 'cafe', label: 'Cafes' },
+    { value: 'park', label: 'Parks' },
+    { value: 'school', label: 'Schools' },
+    { value: 'hospital', label: 'Hospitals' }
+  ]
 
   const validateForm = () => {
     const newErrors = {}
@@ -36,7 +46,7 @@ const SearchForm = ({ onSearch, loading }) => {
     e.preventDefault()
     
     if (validateForm()) {
-      onSearch(parseFloat(latitude), parseFloat(longitude), parseFloat(radius))
+      onSearch(parseFloat(latitude), parseFloat(longitude), parseFloat(radius), type)
     }
   }
 
@@ -102,6 +112,22 @@ const SearchForm = ({ onSearch, loading }) => {
             className={errors.radius ? 'error' : ''}
           />
           {errors.radius && <span className="error-text">{errors.radius}</span>}
+        </div>
+
+        <div className="form-group">
+          <label htmlFor="type">Place Type</label>
+          <select
+            id="type"
+            value={type}
+            onChange={(e) => setType(e.target.value)}
+            className="type-select"
+          >
+            {placeTypes.map((option) => (
+              <option key={option.value} value={option.value}>
+                {option.label}
+              </option>
+            ))}
+          </select>
         </div>
       </div>
 

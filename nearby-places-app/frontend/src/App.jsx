@@ -14,13 +14,14 @@ function App() {
   const [searchParams, setSearchParams] = useState(null)
   const [currentPage, setCurrentPage] = useState('search')
 
-  const handleSearch = async (latitude, longitude, radius) => {
+  const handleSearch = async (latitude, longitude, radius, type) => {
     setLoading(true)
     setError(null)
-    setSearchParams({ latitude, longitude, radius })
+    setSearchParams({ latitude, longitude, radius, type })
 
     try {
-      const response = await fetch(`/api/nearby?latitude=${latitude}&longitude=${longitude}&radius=${radius}`)
+      const typeParam = type ? `&type=${type}` : ''
+      const response = await fetch(`/api/nearby?latitude=${latitude}&longitude=${longitude}&radius=${radius}${typeParam}`)
       
       if (!response.ok) {
         throw new Error('Failed to fetch nearby places')

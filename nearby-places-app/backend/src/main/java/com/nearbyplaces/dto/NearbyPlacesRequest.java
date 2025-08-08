@@ -22,6 +22,8 @@ public class NearbyPlacesRequest {
     @DecimalMax(value = "50000.0", message = "Radius must be at most 50000")
     private BigDecimal radius;
     
+    private String type;
+    
     // Constructors
     public NearbyPlacesRequest() {}
     
@@ -54,5 +56,13 @@ public class NearbyPlacesRequest {
     
     public void setRadius(BigDecimal radius) {
         this.radius = radius;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
     }
 } 
