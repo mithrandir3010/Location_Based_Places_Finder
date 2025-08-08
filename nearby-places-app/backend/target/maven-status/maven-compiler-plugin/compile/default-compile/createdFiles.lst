@@ -7,7 +7,9 @@ com\nearbyplaces\model\Place.class
 com\nearbyplaces\dto\FavoritePlaceRequest.class
 com\nearbyplaces\controller\PlaceController.class
 com\nearbyplaces\dto\FavoritePlaceResponse.class
+com\nearbyplaces\dto\ReviewResponse.class
 com\nearbyplaces\controller\FavoritePlaceController.class
+com\nearbyplaces\service\ReviewService.class
 com\nearbyplaces\repository\FavoritePlaceRepository.class
 com\nearbyplaces\NearbyPlacesApplication.class
 com\nearbyplaces\service\FavoritePlaceService.class

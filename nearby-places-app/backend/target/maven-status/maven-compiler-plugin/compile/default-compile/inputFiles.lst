@@ -1,9 +1,11 @@
 C:\Users\tommy\Desktop\Location_Based_Places_Finder\nearby-places-app\backend\src\main\java\com\nearbyplaces\controller\FavoritePlaceController.java
 C:\Users\tommy\Desktop\Location_Based_Places_Finder\nearby-places-app\backend\src\main\java\com\nearbyplaces\NearbyPlacesApplication.java
+C:\Users\tommy\Desktop\Location_Based_Places_Finder\nearby-places-app\backend\src\main\java\com\nearbyplaces\dto\ReviewResponse.java
 C:\Users\tommy\Desktop\Location_Based_Places_Finder\nearby-places-app\backend\src\main\java\com\nearbyplaces\dto\PlaceResponse.java
 C:\Users\tommy\Desktop\Location_Based_Places_Finder\nearby-places-app\backend\src\main\java\com\nearbyplaces\model\FavoritePlace.java
 C:\Users\tommy\Desktop\Location_Based_Places_Finder\nearby-places-app\backend\src\main\java\com\nearbyplaces\service\PlaceService.java
 C:\Users\tommy\Desktop\Location_Based_Places_Finder\nearby-places-app\backend\src\main\java\com\nearbyplaces\model\Place.java
+C:\Users\tommy\Desktop\Location_Based_Places_Finder\nearby-places-app\backend\src\main\java\com\nearbyplaces\service\ReviewService.java
 C:\Users\tommy\Desktop\Location_Based_Places_Finder\nearby-places-app\backend\src\main\java\com\nearbyplaces\controller\PlaceController.java
 C:\Users\tommy\Desktop\Location_Based_Places_Finder\nearby-places-app\backend\src\main\java\com\nearbyplaces\dto\FavoritePlaceRequest.java
 C:\Users\tommy\Desktop\Location_Based_Places_Finder\nearby-places-app\backend\src\main\java\com\nearbyplaces\repository\FavoritePlaceRepository.java

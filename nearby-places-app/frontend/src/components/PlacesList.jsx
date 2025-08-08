@@ -1,8 +1,13 @@
 import React, { useState, useEffect } from 'react'
-import { Star, MapPin, Tag, Heart, HeartOff } from 'lucide-react'
+import { Star, MapPin, Tag, Heart, HeartOff, MessageCircle } from 'lucide-react'
+import ReviewsList from './ReviewsList'
 
 const PlacesList = ({ places }) => {
   const [favoritedPlaces, setFavoritedPlaces] = useState(new Set())
+  const [expandedReviews, setExpandedReviews] = useState(new Set())
+  const [reviewsData, setReviewsData] = useState({})
+  const [reviewsLoading, setReviewsLoading] = useState(new Set())
+  const [reviewsErrors, setReviewsErrors] = useState({})
 
   useEffect(() => {
     // Check which places are already favorited
@@ -93,6 +98,46 @@ const PlacesList = ({ places }) => {
     }
   }
 
+  const fetchReviews = async (placeId) => {
+    if (reviewsData[placeId]) {
+      // Reviews already loaded, just toggle visibility
+      setExpandedReviews(prev => {
+        const newSet = new Set(prev)
+        if (newSet.has(placeId)) {
+          newSet.delete(placeId)
+        } else {
+          newSet.add(placeId)
+        }
+        return newSet
+      })
+      return
+    }
+
+    // Show loading state
+    setReviewsLoading(prev => new Set([...prev, placeId]))
+    setReviewsErrors(prev => ({ ...prev, [placeId]: null }))
+
+    try {
+      const response = await fetch(`/api/places/${placeId}/reviews`)
+      
+      if (response.ok) {
+        const reviews = await response.json()
+        setReviewsData(prev => ({ ...prev, [placeId]: reviews }))
+        setExpandedReviews(prev => new Set([...prev, placeId]))
+      } else {
+        throw new Error('Failed to fetch reviews')
+      }
+    } catch (error) {
+      setReviewsErrors(prev => ({ ...prev, [placeId]: error.message }))
+    } finally {
+      setReviewsLoading(prev => {
+        const newSet = new Set(prev)
+        newSet.delete(placeId)
+        return newSet
+      })
+    }
+  }
+
   if (!places || places.length === 0) {
     return (
       <div className="places-list">
@@ -138,6 +183,15 @@ const PlacesList = ({ places }) => {
               }}>
                 📍 {place.latitude.toFixed(6)}, {place.longitude.toFixed(6)}
               </div>
+
+              <button
+                onClick={() => fetchReviews(place.placeId)}
+                className="reviews-button"
+                title="View customer reviews"
+              >
+                <MessageCircle size={16} />
+                {expandedReviews.has(place.placeId) ? 'Hide Reviews' : 'View Reviews'}
+              </button>
             </div>
             
             <button
@@ -147,6 +201,16 @@ const PlacesList = ({ places }) => {
             >
               {isFavorited ? <HeartOff size={16} /> : <Heart size={16} />}
             </button>
+
+            {expandedReviews.has(place.placeId) && (
+              <div className="reviews-section">
+                <ReviewsList
+                  reviews={reviewsData[place.placeId]}
+                  loading={reviewsLoading.has(place.placeId)}
+                  error={reviewsErrors[place.placeId]}
+                />
+              </div>
+            )}
           </div>
         )
       })}
